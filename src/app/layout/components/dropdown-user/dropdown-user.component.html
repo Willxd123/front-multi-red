@@ -1,0 +1,50 @@
+ <!-- Dropdown Usuario -->
+ <div class="relative dropdown-user-container">
+    <button
+      (click)="toggleUserDropdown()"
+      class="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 transition-colors"
+    >
+      <img
+        class="w-8 h-8 rounded-full border-2 border-gray-200"
+        src="https://ui-avatars.com/api/?name=Usuario&background=3b82f6&color=fff"
+        alt="Usuario"
+      />
+    </button>
+
+    <!-- Dropdown Menu Usuario -->
+    <div
+      *ngIf="isUserDropdownOpen"
+      class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+    >
+      <!-- Header del dropdown -->
+      <div class="px-4 py-3 border-b border-gray-200">
+        <p class="text-sm font-semibold text-gray-800">Joseph McFall</p>
+        <p class="text-xs text-gray-600 truncate">nameflowbitecom</p>
+      </div>
+
+      <!-- Opciones -->
+      <ul class="py-2">
+        <li>
+          <a
+            href="#"
+            class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <i class="fa-solid fa-gauge text-gray-600"></i>
+            Dashboard
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- Cerrar Sesión -->
+      <div class="border-t border-gray-200">
+        <button
+          (click)="cerrarSesion()"
+          class="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+        >
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </div>

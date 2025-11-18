@@ -1,0 +1,170 @@
+<aside
+  [ngClass]="{
+    'w-64': isOpen,
+    'w-0': !isOpen
+  }"
+  class="h-screen bg-stone-800 border-r border-stone-700 transition-all duration-300 ease-in-out overflow-hidden flex-shrink-0"
+>
+  <div class="h-full flex flex-col">
+    <!-- Sidebar Header -->
+    <div
+      class="h-16 flex items-center justify-between px-4 border-b border-stone-700"
+    >
+      <h2 class="text-lg font-semibold text-white whitespace-nowrap">
+        Conversaciones
+      </h2>
+      <button
+        (click)="onCloseSidebar()"
+        class="p-2 rounded-lg hover:bg-stone-800  transition-colors lg:hidden"
+        aria-label="Cerrar sidebar"
+      >
+        <svg
+          class="w-5 h-5 text-gray-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Sidebar Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Botón Nueva Conversación - FIJO -->
+      <div class="p-3 border-b border-stone-700 flex-shrink-0">
+        <button class="w-full flex items-center gap-3 px-4 py-3 bg-orange-100 hover:bg-orange-200 rounded-lg transition-colors">
+
+          <i class="fa-solid fa-plus text-orange-800"></i>
+          <span class="text-sm font-semibold text-orange-800">Nueva Conversación</span>
+        </button>
+      </div>
+
+      <!-- Historial de Conversaciones - SCROLLEABLE -->
+      <div class="flex-1 overflow-y-auto [scrollbar-width: thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-stone-500">
+        <div class="p-3">
+          <div class="space-y-1">
+            <!-- Conversación Activa -->
+            <div class="bg-stone-900 border-l-4 border-stone-500 px-3 py-3 rounded-r-lg cursor-pointer hover:bg-stone-800 transition-colors">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-white truncate">Estrategia de Marketing Digital</p>
+                  <p class="text-xs text-gray-500  truncate">¿Cómo puedo mejorar mi presencia...</p>
+                </div>
+                <span class="text-xs text-gray-500 whitespace-nowrap">Hoy</span>
+              </div>
+            </div>
+
+            <!-- Conversación Reciente -->
+            <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-white truncate">Plan de Contenido TikTok</p>
+                  <p class="text-xs text-gray-600 truncate">Ideas para videos virales en...</p>
+                </div>
+                <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+              </div>
+            </div>
+
+            <!-- Conversación -->
+            <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-white truncate">Análisis de Competencia</p>
+                  <p class="text-xs text-gray-600 truncate">¿Qué están haciendo mis competi...</p>
+                </div>
+                <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+              </div>
+            </div>
+    <!-- Conversación -->
+    <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-white truncate">Análisis de Competencia</p>
+          <p class="text-xs text-gray-600 truncate">¿Qué están haciendo mis competi...</p>
+        </div>
+        <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+      </div>
+    </div>
+        <!-- Conversación -->
+        <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-white truncate">Análisis de Competencia</p>
+              <p class="text-xs text-gray-600 truncate">¿Qué están haciendo mis competi...</p>
+            </div>
+            <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+          </div>
+        </div>
+            <!-- Conversación -->
+            <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-white truncate">Análisis de Competencia</p>
+                  <p class="text-xs text-gray-600 truncate">¿Qué están haciendo mis competi...</p>
+                </div>
+                <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+              </div>
+            </div>
+                <!-- Conversación -->
+                <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+                  <div class="flex items-start justify-between gap-2">
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-white truncate">Análisis de Competencia</p>
+                      <p class="text-xs text-gray-600 truncate">¿Qué están haciendo mis competi...</p>
+                    </div>
+                    <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+                  </div>
+                </div>
+                    <!-- Conversación -->
+            <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-white truncate">Análisis de Competencia</p>
+                  <p class="text-xs text-gray-600 truncate">¿Qué están haciendo mis competi...</p>
+                </div>
+                <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+              </div>
+            </div>    <!-- Conversación -->
+            <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-white truncate">Análisis de Competencia</p>
+                  <p class="text-xs text-gray-600 truncate">¿Qué están haciendo mis competi...</p>
+                </div>
+                <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+              </div>
+            </div>
+                <!-- Conversación -->
+                <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+                  <div class="flex items-start justify-between gap-2">
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-white truncate">Análisis de Competencia</p>
+                      <p class="text-xs text-gray-600 truncate">¿Qué están haciendo mis competi...</p>
+                    </div>
+                    <span class="text-xs text-gray-500 whitespace-nowrap">Ayer</span>
+                  </div>
+                </div>
+            <!-- Conversación -->
+            <div class="px-3 py-3 rounded-lg cursor-pointer hover:bg-stone-800  transition-colors">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-white truncate">Calendario Editorial</p>
+                  <p class="text-xs text-gray-600 truncate">Necesito organizar mis publicaci...</p>
+                </div>
+                <span class="text-xs text-gray-500 whitespace-nowrap">Hace 2 días</span>
+              </div>
+            </div>
+
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

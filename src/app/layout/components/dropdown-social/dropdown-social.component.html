@@ -1,0 +1,135 @@
+<div class="relative dropdown-social-container">
+    <button
+      (click)="toggleRedesSocialesDropdown()"
+      class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-gray-100 hover:text-black transition-colors"
+    >
+      Redes Sociales
+      <svg 
+        class="w-4 h-4 transition-transform" 
+        [class.rotate-180]="isRedesSocialesDropdownOpen" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+  
+    <!-- Dropdown Menu Redes Sociales -->
+    <div 
+      *ngIf="isRedesSocialesDropdownOpen" 
+      class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+    >
+      <ul class="py-2">
+        <!-- Instagram -->
+        <li>
+          <button 
+            (click)="toggleSocialMedia('instagram')" 
+            class="w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-gray-50 transition-colors"
+          >
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-instagram text-lg text-pink-600"></i>
+              <span class="text-gray-700">Instagram</span>
+            </div>
+            <div 
+              class="w-10 h-5 rounded-full transition-colors" 
+              [ngClass]="{'bg-green-500': isConnected('instagram'), 'bg-gray-400': !isConnected('instagram')}"
+            >
+              <div 
+                class="w-4 h-4 bg-white rounded-full shadow-md transform transition-transform mt-0.5" 
+                [ngClass]="{'translate-x-5': isConnected('instagram'), 'translate-x-0.5': !isConnected('instagram')}"
+              ></div>
+            </div>
+          </button>
+        </li>
+  
+        <!-- TikTok -->
+        <li>
+          <button 
+            (click)="toggleSocialMedia('tiktok')" 
+            class="w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-gray-50 transition-colors"
+          >
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-tiktok text-lg text-black"></i>
+              <span class="text-gray-700">TikTok</span>
+            </div>
+            <div 
+              class="w-10 h-5 rounded-full transition-colors" 
+              [ngClass]="{'bg-green-500': isConnected('tiktok'), 'bg-gray-400': !isConnected('tiktok')}"
+            >
+              <div 
+                class="w-4 h-4 bg-white rounded-full shadow-md transform transition-transform mt-0.5" 
+                [ngClass]="{'translate-x-5': isConnected('tiktok'), 'translate-x-0.5': !isConnected('tiktok')}"
+              ></div>
+            </div>
+          </button>
+        </li>
+  
+        <!-- Facebook -->
+        <li>
+          <button 
+            (click)="toggleSocialMedia('facebook')" 
+            class="w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-gray-50 transition-colors"
+          >
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-square-facebook text-lg text-blue-600"></i>
+              <span class="text-gray-700">Facebook</span>
+            </div>
+            <div 
+              class="w-10 h-5 rounded-full transition-colors" 
+              [ngClass]="{'bg-green-500': isConnected('facebook'), 'bg-gray-400': !isConnected('facebook')}"
+            >
+              <div 
+                class="w-4 h-4 bg-white rounded-full shadow-md transform transition-transform mt-0.5" 
+                [ngClass]="{'translate-x-5': isConnected('facebook'), 'translate-x-0.5': !isConnected('facebook')}"
+              ></div>
+            </div>
+          </button>
+        </li>
+  
+        <!-- WhatsApp -->
+        <li>
+          <button 
+            (click)="toggleSocialMedia('whatsapp')" 
+            class="w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-gray-50 transition-colors"
+          >
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-whatsapp text-lg text-green-500"></i>
+              <span class="text-gray-700">WhatsApp</span>
+            </div>
+            <div 
+              class="w-10 h-5 rounded-full transition-colors" 
+              [ngClass]="{'bg-green-500': isConnected('whatsapp'), 'bg-gray-400': !isConnected('whatsapp')}"
+            >
+              <div 
+                class="w-4 h-4 bg-white rounded-full shadow-md transform transition-transform mt-0.5" 
+                [ngClass]="{'translate-x-5': isConnected('whatsapp'), 'translate-x-0.5': !isConnected('whatsapp')}"
+              ></div>
+            </div>
+          </button>
+        </li>
+  
+        <!-- LinkedIn -->
+        <li>
+          <button 
+            (click)="toggleSocialMedia('linkedin')" 
+            class="w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-gray-50 transition-colors"
+          >
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-linkedin text-lg text-blue-700"></i>
+              <span class="text-gray-700">LinkedIn</span>
+            </div>
+            <div 
+              class="w-10 h-5 rounded-full transition-colors" 
+              [ngClass]="{'bg-green-500': isConnected('linkedin'), 'bg-gray-400': !isConnected('linkedin')}"
+            >
+              <div 
+                class="w-4 h-4 bg-white rounded-full shadow-md transform transition-transform mt-0.5" 
+                [ngClass]="{'translate-x-5': isConnected('linkedin'), 'translate-x-0.5': !isConnected('linkedin')}"
+              ></div>
+            </div>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>

@@ -1,0 +1,209 @@
+<section class="min-h-screen flex flex-col bg-gray-200">
+  <!-- Encabezado -->
+ <!--  <header
+    class="bg-gray-800 shadow w-full py-4 px-8 flex justify-between items-center"
+  >
+    <h1 class="text-white text-2xl font-bold">Dashboard - Multi-Red</h1>
+    <div class="flex items-center space-x-4">
+      <button
+        (click)="logout()"
+        class="px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-md hover:bg-red-700 transition"
+      >
+        Finalizar sesión
+      </button>
+    </div>
+  </header> -->
+
+  <!-- Contenido Principal -->
+  <main class="flex-1 container mx-auto px-4 py-8">
+    <!-- Mensajes de notificación -->
+    <div
+      *ngIf="successMessage"
+      class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md"
+    >
+      {{ successMessage }}
+    </div>
+
+    <div
+      *ngIf="errorMessage"
+      class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md"
+    >
+      {{ errorMessage }}
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Panel de Conexiones -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">
+          🔗 Redes Sociales Conectadas
+        </h2>
+
+        <!-- Loading -->
+        <div *ngIf="loadingConnection" class="text-center py-4">
+          <p class="text-gray-600">Cargando conexiones...</p>
+        </div>
+
+        <!-- TikTok Connection -->
+        <div class="border rounded-lg p-4 mb-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-xl font-bold"
+              >
+                TT
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">TikTok</h3>
+                <p class="text-sm text-gray-600" *ngIf="!isTikTokConnected()">
+                  No conectado
+                </p>
+                <p class="text-sm text-green-600" *ngIf="isTikTokConnected()">
+                  ✓ Conectado
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <button
+                *ngIf="!isTikTokConnected()"
+                (click)="connectTikTok()"
+                class="px-4 py-2 bg-black text-white text-sm font-semibold rounded-md hover:bg-gray-800 transition"
+              >
+                Conectar
+              </button>
+
+              <button
+                *ngIf="isTikTokConnected()"
+                (click)="disconnectTikTok()"
+                class="px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-md hover:bg-red-700 transition"
+              >
+                Desconectar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instagram (Próximamente) -->
+        <div class="border rounded-lg p-4 mb-4 opacity-50">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white text-xl font-bold"
+              >
+                IG
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Instagram</h3>
+                <p class="text-sm text-gray-600">Próximamente</p>
+              </div>
+            </div>
+
+            <button
+              disabled
+              class="px-4 py-2 bg-gray-400 text-white text-sm font-semibold rounded-md cursor-not-allowed"
+            >
+              Próximamente
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel de Publicación -->
+      <!-- Panel de Publicación en TikTok -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">
+          🎬 Publicar Video en TikTok
+        </h2>
+
+        <!-- Verificar si TikTok está conectado -->
+        <div *ngIf="!isTikTokConnected()" class="text-center py-8">
+          <p class="text-gray-600 mb-4">
+            ⚠️ Necesitas conectar tu cuenta de TikTok para poder publicar
+          </p>
+          <button
+            (click)="connectTikTok()"
+            class="px-6 py-3 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition"
+          >
+            Conectar TikTok
+          </button>
+        </div>
+
+        <!-- Formulario de publicación -->
+        <div *ngIf="isTikTokConnected()">
+          <form (ngSubmit)="publishToTikTok()">
+            <!-- Seleccionar video -->
+            <div class="mb-4">
+              <label
+                for="tiktok-video"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Video * (mp4, mov, avi - máx 500MB)
+              </label>
+              <input
+                id="tiktok-video"
+                type="file"
+                accept="video/mp4,video/mov,video/avi,video/quicktime"
+                (change)="onVideoSelected($event)"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                [disabled]="isPublishingTikTok"
+              />
+              <p class="text-xs text-gray-500 mt-1" *ngIf="selectedVideo">
+                ✓ {{ selectedVideo.name }} ({{
+                  (selectedVideo.size / 1024 / 1024).toFixed(2)
+                }}
+                MB)
+              </p>
+            </div>
+
+            <!-- Caption/Descripción -->
+            <div class="mb-4">
+              <label
+                for="tiktok-caption"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Descripción *
+              </label>
+              <textarea
+                id="tiktok-caption"
+                [(ngModel)]="tiktokCaption"
+                name="caption"
+                rows="4"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                placeholder="Escribe una descripción para tu video..."
+                [disabled]="isPublishingTikTok"
+                maxlength="2200"
+              ></textarea>
+              <p class="text-xs text-gray-500 text-right">
+                {{ tiktokCaption.length }} / 2200
+              </p>
+            </div>
+
+            <!-- Nota importante -->
+            <div
+              class="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md"
+            >
+              <p class="text-xs text-yellow-800">
+                ℹ️ El video se publicará como <strong>borrador privado</strong>.
+                Podrás publicarlo manualmente desde la app de TikTok.
+              </p>
+            </div>
+
+            <!-- Botón de publicar -->
+            <div class="flex justify-end">
+              <button
+                type="submit"
+                [disabled]="
+                  isPublishingTikTok || !selectedVideo || !tiktokCaption.trim()
+                "
+                class="px-6 py-3 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+              >
+                <span *ngIf="!isPublishingTikTok">Publicar en TikTok</span>
+                <span *ngIf="isPublishingTikTok">Subiendo video...</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
