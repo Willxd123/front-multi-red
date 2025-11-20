@@ -24,7 +24,7 @@ export class LoginComponent {
 
     this.authService.login(this.email, this.password).subscribe({
       next: () => {
-        this.router.navigate(['/client']);
+        this.router.navigate(['/chat']);
       },
       error: () => {
         this.errorMessage = 'email o password incorrectos';

@@ -1,258 +1,162 @@
 <div class="flex h-screen bg-gray-700 overflow-hidden">
-  <!-- Sidebar -->
   <app-sidebar
     class="h-full"
     [isOpen]="isSidebarOpen"
     (closeSidebar)="toggleSidebar()"
   >
   </app-sidebar>
-  <!-- Main Content Area -->
+  
   <div class="flex-1 flex flex-col min-w-0">
-    <!-- Navbar -->
     <app-navbar [isSidebarOpen]="isSidebarOpen" (toggleMenu)="toggleSidebar()">
     </app-navbar>
 
-    <!-- Main Content -->
-    <!--   <main class="flex-1 overflow-y-auto bg-stone-700"> -->
     <main class="flex-1 overflow-hidden bg-stone-700 flex flex-col ">
-      <!-- Área de Mensajes - Scrolleable -->
-      <div class="flex-1 overflow-y-auto [scrollbar-width: thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-stone-500">
-        <div class="max-w-3xl mx-auto px-4 py-6 space-y-6">
-          <!-- Mensaje del Usuario -->
-          <div class="flex justify-end">
-            <div class="bg-blue-600 text-white rounded-2xl px-4 py-3 max-w-lg">
-              <p class="text-sm">
-                Hola, necesito ayuda para crear una estrategia de contenido para
-                mis redes sociales. ¿Puedes ayudarme?
-              </p>
-            </div>
-          </div>
-
-          <!-- Mensaje de Claude -->
-          <div class="flex justify-start">
-            <div class="bg-white rounded-2xl px-4 py-3 max-w-2xl shadow-sm">
-              <p class="text-sm text-gray-800 mb-3">
-                ¡Por supuesto! Me encantaría ayudarte a crear una estrategia de
-                contenido efectiva. Para empezar, necesito entender mejor tu
-                situación:
-              </p>
-              <ol class="text-sm text-gray-800 space-y-2 ml-4 list-decimal">
-                <li>
-                  ¿En qué redes sociales estás activo actualmente? (Instagram,
-                  TikTok, Facebook, etc.)
-                </li>
-                <li>¿Cuál es tu nicho o industria?</li>
-                <li>¿Quién es tu público objetivo?</li>
-                <li>
-                  ¿Qué objetivos buscas alcanzar con tus redes? (más seguidores,
-                  ventas, reconocimiento de marca, etc.)
-                </li>
-              </ol>
-              <p class="text-sm text-gray-800 mt-3">
-                Con esta información podré crear una estrategia personalizada
-                para ti.
-              </p>
-            </div>
-          </div>
-
-          <!-- Mensaje del Usuario -->
-          <div class="flex justify-end">
-            <div class="bg-blue-600 text-white rounded-2xl px-4 py-3 max-w-lg">
-              <p class="text-sm">
-                Estoy en Instagram y TikTok principalmente. Mi nicho es fitness
-                y nutrición, mi público son mujeres de 25-40 años que buscan un
-                estilo de vida saludable. Quiero aumentar mi comunidad y
-                eventualmente vender mi programa de entrenamiento online.
-              </p>
-            </div>
-          </div>
-
-          <!-- Mensaje de Claude -->
-          <div class="flex justify-start">
-            <div class="bg-white rounded-2xl px-4 py-3 max-w-2xl shadow-sm">
-              <p class="text-sm text-gray-800 mb-3">
-                Perfecto, tienes muy claro tu público objetivo. Te propongo una
-                estrategia de contenido basada en pilares:
-              </p>
-
-              <div class="mt-3 space-y-3">
-                <div class="border-l-4 border-blue-500 pl-3">
-                  <h4 class="font-semibold text-sm text-gray-900">
-                    Pilar 1: Educación (40%)
-                  </h4>
-                  <p class="text-sm text-gray-700">
-                    Tips de nutrición, explicación de ejercicios, mitos vs
-                    realidades
-                  </p>
-                </div>
-
-                <div class="border-l-4 border-green-500 pl-3">
-                  <h4 class="font-semibold text-sm text-gray-900">
-                    Pilar 2: Inspiración (30%)
-                  </h4>
-                  <p class="text-sm text-gray-700">
-                    Transformaciones, historias de éxito, motivación diaria
-                  </p>
-                </div>
-
-                <div class="border-l-4 border-purple-500 pl-3">
-                  <h4 class="font-semibold text-sm text-gray-900">
-                    Pilar 3: Entretenimiento (20%)
-                  </h4>
-                  <p class="text-sm text-gray-700">
-                    Recetas rápidas, rutinas en tiempo real, challenges
-                  </p>
-                </div>
-
-                <div class="border-l-4 border-orange-500 pl-3">
-                  <h4 class="font-semibold text-sm text-gray-900">
-                    Pilar 4: Ventas (10%)
-                  </h4>
-                  <p class="text-sm text-gray-700">
-                    Testimonios del programa, sneak peeks, ofertas especiales
-                  </p>
-                </div>
-              </div>
-
-              <p class="text-sm text-gray-800 mt-4">
-                ¿Te gustaría que profundice en alguno de estos pilares o
-                prefieres que veamos un calendario de publicación?
-              </p>
-            </div>
-          </div>
-
-          <!-- Mensaje del Usuario -->
-          <div class="flex justify-end">
-            <div class="bg-blue-600 text-white rounded-2xl px-4 py-3 max-w-lg">
-              <p class="text-sm">
-                Me encanta! ¿Podrías darme ideas específicas de contenido para
-                TikTok?
-              </p>
-            </div>
-          </div>
-
-          <!-- Mensaje de Claude -->
-          <div class="flex justify-start">
-            <div class="bg-white rounded-2xl px-4 py-3 max-w-2xl shadow-sm">
-              <p class="text-sm text-gray-800 mb-3">
-                ¡Claro! Aquí tienes 10 ideas de contenido específicas para
-                TikTok en tu nicho:
-              </p>
-
-              <div class="space-y-2 text-sm text-gray-800">
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">1.</span>
-                  <p>"Lo que como en un día" con todos los macros explicados</p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">2.</span>
-                  <p>Rutina de 5 minutos para hacer en cualquier lugar</p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">3.</span>
-                  <p>
-                    "Cosas que dejé de hacer cuando empecé mi viaje fitness"
-                  </p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">4.</span>
-                  <p>Mitos del fitness que necesitas dejar de creer</p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">5.</span>
-                  <p>Transición "yo antes vs yo ahora" con tu historia</p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">6.</span>
-                  <p>
-                    "POV: Entrenar después de un día estresante" (relatable)
-                  </p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">7.</span>
-                  <p>3 desayunos proteicos en menos de 10 minutos</p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">8.</span>
-                  <p>
-                    Tutorial de ejercicio comparando forma correcta vs
-                    incorrecta
-                  </p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">9.</span>
-                  <p>"Red flags de un entrenador" o consejos de seguridad</p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="text-blue-600 font-bold">10.</span>
-                  <p>Challenge de 7 días para construir un hábito saludable</p>
-                </div>
-              </div>
-
-              <p class="text-sm text-gray-800 mt-4">
-                Todos estos contenidos tienen alto potencial de viralización
-                porque son educativos, entretenidos y fáciles de consumir. ¿Cuál
-                te llama más la atención?
-              </p>
-            </div>
-          </div>
+      <!-- Mensajes de éxito/error -->
+      <div *ngIf="publishSuccess" class="mx-auto max-w-3xl w-full px-4 pt-4">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+          <span class="block sm:inline">{{ publishSuccess }}</span>
+        </div>
+      </div>
+      
+      <div *ngIf="publishError" class="mx-auto max-w-3xl w-full px-4 pt-4">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+          <span class="block sm:inline">{{ publishError }}</span>
         </div>
       </div>
 
-      <!-- Input Area - Flotante y fijo en la parte inferior -->
+      <div class="flex-1 overflow-y-auto [scrollbar-width: thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-stone-500 chat-area">
+        <div class="max-w-3xl mx-auto px-4 py-6 space-y-6">
+
+          <ng-container *ngFor="let message of messages">
+            
+            <div *ngIf="message.role === 'user'" class="flex justify-end">
+              <div class="bg-blue-600 text-white rounded-2xl px-4 py-3 max-w-lg">
+                <p class="text-sm">
+                  {{ message.content.text }}
+                </p>
+              </div>
+            </div>
+
+            <div *ngIf="message.role === 'assistant'" class="flex justify-start">
+              <div class="bg-white rounded-2xl px-4 py-3 max-w-2xl shadow-sm w-full">
+                
+                <div *ngIf="message.content.status === 'processing_media'" class="flex items-center space-x-2 text-orange-600 mb-2">
+                  <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span class="text-sm font-semibold">Generando multimedia (videos/imágenes)...</span>
+                </div>
+
+                 <div *ngIf="message.content.status === 'completed'" class="flex items-center space-x-2 text-green-600 mb-2">
+                  <span class="text-sm font-semibold">✅ Contenido generado exitosamente</span>
+                </div>
+
+                <ng-container *ngFor="let network of socialNetworks">
+                  <div *ngIf="message.content[network]" class="border-l-4 pl-3 mt-4"
+                       [ngClass]="{
+                         'border-blue-700': network === 'Facebook' || network === 'LinkedIn',
+                         'border-pink-600': network === 'Instagram',
+                         'border-black': network === 'TikTok',
+                         'border-green-600': network === 'WhatsApp'
+                       }">
+                    
+                    <h4 class="font-bold text-sm text-gray-900 mb-1">{{ network }}</h4>
+                    
+                    <!-- 🔧 FIX: Manejar descripción en ambas ubicaciones -->
+                    <p class="text-sm text-gray-700 whitespace-pre-wrap">
+                      {{ message.content[network].descripcion || message.content[network].media_info?.descripcion }}
+                    </p>
+
+                    <!-- Guion (solo para TikTok) -->
+                    <!-- <div *ngIf="message.content[network].media_info?.guion" class="mt-2 bg-gray-100 p-2 rounded text-xs text-gray-600 italic">
+                      <strong>Guion:</strong> {{ message.content[network].media_info?.guion }}
+                    </div>
+ -->
+                    <!-- Archivo multimedia -->
+                    <div *ngIf="message.content[network].media_info?.fileName" class="mt-2">
+                      <span class="text-xs bg-stone-200 px-2 py-1 rounded text-stone-700">
+                        📄 {{ message.content[network].media_info?.fileName }}
+                      </span>
+                    </div>
+
+                    <!-- Botón de publicar para TikTok -->
+                    <div *ngIf="network === 'TikTok' && message.content.status === 'completed'" class="mt-3">
+                      <!-- Mostrar botón de publicar si puede publicarse -->
+                      <button 
+                        *ngIf="canPublishToTikTok(message)"
+                        (click)="publishToTikTok(message.id)"
+                        [disabled]="publishingMessageId === message.id"
+                        class="bg-black hover:bg-gray-800 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                        <svg *ngIf="publishingMessageId === message.id" class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span *ngIf="publishingMessageId !== message.id">📱 Publicar en TikTok</span>
+                        <span *ngIf="publishingMessageId === message.id">Publicando...</span>
+                      </button>
+
+                      <!-- Mostrar estado de publicado -->
+                      <div *ngIf="isPublished(message)" class="bg-green-50 border border-green-200 rounded-lg p-3">
+                        <div class="flex items-center gap-2 text-green-700">
+                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                          </svg>
+                          <span class="font-semibold text-sm">Publicado en TikTok</span>
+                        </div>
+                        <p class="text-xs text-green-600 mt-1">
+                          {{ message.content[network].publicacion?.mensaje }}
+                        </p>
+                        <p class="text-xs text-gray-500 mt-1">
+                          ID: {{ message.content[network].publicacion?.publishId }}
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+                </ng-container>
+
+              </div>
+            </div>
+          </ng-container>
+
+          <div *ngIf="isLoading" class="flex justify-start pt-4">
+              <div class="bg-white rounded-2xl px-4 py-3 max-w-xs shadow-sm flex items-center space-x-2">
+                  <svg class="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <p class="text-sm text-gray-800">Enviando solicitud...</p>
+              </div>
+          </div>
+
+        </div>
+      </div>
+
       <div class="px-4 pb-6 flex-shrink-0">
         <div class="max-w-3xl mx-auto">
-          <!-- Contenedor del input flotante con sombra -->
-          <div
-            class="bg-stone-950 rounded-3xl shadow-xl border border-stone-200"
-          >
+          <div class="bg-stone-950 rounded-3xl shadow-xl border border-stone-200">
             <div class="flex items-end gap-2 p-2">
-              <!-- Textarea -->
               <div class="flex-1">
                 <textarea
                   rows="1"
-                  placeholder="Pregunta Multi Red..."
-                  class="w-full resize-none border-none bg-transparent py-3 text-sm max-h-32 text-white focus:outline-none focus:ring-0 placeholder:text-gray-400 overflow-y-auto [scrollbar-width: thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-600 selection:bg-blue-500 selection:text-white"
-                  style="field-sizing: content"
-                ></textarea>
+                  placeholder="Escribe tu idea para las redes..."
+                  class="w-full resize-none border-none bg-transparent py-3 text-sm max-h-32 text-white focus:outline-none focus:ring-0 placeholder:text-gray-400"
+                  [(ngModel)]="currentPrompt" 
+                  (keydown.enter)="sendMessage(); $event.preventDefault()">
+                </textarea>
               </div>
-
-              <!-- Botón Enviar -->
               <button
-                class="bg-stone-900 hover:bg-stone-800 text-white rounded-full p-2 transition-colors flex-shrink-0"
-              >
-                <svg
-                  class="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 10l7-7m0 0l7 7m-7-7v18"
-                  />
-                </svg>
+                (click)="sendMessage()" 
+                [disabled]="!currentPrompt.trim() || isLoading"
+                [ngClass]="{'bg-blue-600 hover:bg-blue-500': currentPrompt.trim() && !isLoading, 'bg-stone-900 text-gray-500': !currentPrompt.trim() || isLoading}"
+                class="text-white rounded-full p-2 transition-colors flex-shrink-0">
+                <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
               </button>
             </div>
           </div>
-
-          <!-- Hint text -->
-          <p class="text-xs text-stone-500 mt-3 text-center">
-            Presiona
-            <kbd class="px-1.5 py-0.5 bg-stone-200 rounded text-xs">Enter</kbd>
-            para enviar
-          </p>
         </div>
       </div>
     </main>
   </div>
-
-  <!-- Overlay for mobile when sidebar is open -->
-  <div
-    *ngIf="isSidebarOpen"
-    (click)="toggleSidebar()"
-    class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-  ></div>
 </div>

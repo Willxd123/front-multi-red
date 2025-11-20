@@ -107,7 +107,7 @@ export class TiktokComponent implements OnInit {
       console.log('✅ TikTok conectado exitosamente');
       this.loadConnectedAccounts(); // Recargar cuentas
       // Limpiar URL
-      window.history.replaceState({}, document.title, '/client');
+      window.history.replaceState({}, document.title, '/chat');
     }
   }
 

@@ -6,8 +6,12 @@ import { tap, catchError } from 'rxjs/operators';
 import { AuthService } from '../../auth/services/auth.service';
 import { environment } from '../../environment';
 
-interface LoginResponse {
-  token: string;
+
+interface ChatbotResponse {
+  conversationId: number;
+  userMessageId: number;
+  assistantMessageId: number;
+  response: any; // JSON con contenido de redes sociales
 }
 
 interface SocialAccount {
@@ -93,4 +97,36 @@ export class MultiRedService {
 
     return this.http.post(`${this.baseUrl}/posts/tiktok/video`, formData, { headers });
   }
+
+
+
+
+  /**
+   * Enviar prompt al chatbot
+   * POST /chatbot/redes?conversationId=X
+   */
+ sendMessage(prompt: string, conversationId: number): Observable<any> {
+  const token = this.getToken;
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+  return this.http.post<any>(
+    `${this.baseUrl}/chatbot/redes`,
+    { prompt, conversationId },
+    { headers }
+  );
+}
+
+/**
+ * Obtener historial de conversación
+ * GET http://localhost:3000/api/conversations/5
+ */
+getConversationHistory(conversationId: number): Observable<any[]> {
+  const token = this.getToken;
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+  return this.http.get<any[]>(
+    `${this.baseUrl}/conversations/${conversationId}`,
+    { headers }
+  );
+}
 }
