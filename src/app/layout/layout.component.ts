@@ -115,6 +115,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
       case 'Instagram':
         observable = this.chatbotService.publishToInstagram(messageId);
         break;
+      case 'LinkedIn': // ✅ AGREGAR
+        observable = this.chatbotService.publishToLinkedIn(messageId);
+        break;
       default:
         this.publishError = `Red social ${network} no soportada`;
         return;
