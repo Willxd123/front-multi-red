@@ -120,4 +120,20 @@ getMediaUrl(fileName: string): string {
   const token = this.authService.getToken();
   return `${this.apiUrl}/media/${fileName}`;
 }
+// Agregar al final de ChatbotService, después de publishToInstagram()
+
+publishToLinkedIn(messageId: number): Observable<any> {
+  const token = this.authService.getToken();
+  if (!token) {
+    throw new Error('Usuario no autenticado');
+  }
+
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+  return this.http.post(
+    `${this.apiUrl}/posts/linkedin/publish-from-message`,
+    { messageId },
+    { headers }
+  );
+}
 }
