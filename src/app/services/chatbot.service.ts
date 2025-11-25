@@ -83,5 +83,41 @@ export class ChatbotService {
       { headers }
     );
   }
+  publishToFacebook(messageId: number): Observable<any> {
+    const token = this.authService.getToken();
+    if (!token) {
+      throw new Error('Usuario no autenticado');
+    }
   
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
+    return this.http.post(
+      `${this.apiUrl}/posts/facebook/publish-from-message`,
+      { messageId },
+      { headers }
+    );
+  }
+  
+  publishToInstagram(messageId: number): Observable<any> {
+    const token = this.authService.getToken();
+    if (!token) {
+      throw new Error('Usuario no autenticado');
+    }
+  
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
+    return this.http.post(
+      `${this.apiUrl}/posts/instagram/publish-from-message`,
+      { messageId },
+      { headers }
+    );
+  }
+
+  /**
+ * Genera URL para previsualizar archivos multimedia
+ */
+getMediaUrl(fileName: string): string {
+  const token = this.authService.getToken();
+  return `${this.apiUrl}/media/${fileName}`;
+}
 }

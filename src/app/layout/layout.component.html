@@ -5,67 +5,111 @@
     (closeSidebar)="toggleSidebar()"
   >
   </app-sidebar>
-  
+
   <div class="flex-1 flex flex-col min-w-0">
     <app-navbar [isSidebarOpen]="isSidebarOpen" (toggleMenu)="toggleSidebar()">
     </app-navbar>
 
-    <main class="flex-1 overflow-hidden bg-stone-700 flex flex-col ">
+    <main class="flex-1 overflow-hidden bg-stone-700 flex flex-col">
       <!-- Mensajes de éxito/error -->
       <div *ngIf="publishSuccess" class="mx-auto max-w-3xl w-full px-4 pt-4">
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+        <div
+          class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+        >
           <span class="block sm:inline">{{ publishSuccess }}</span>
         </div>
       </div>
-      
+
       <div *ngIf="publishError" class="mx-auto max-w-3xl w-full px-4 pt-4">
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+        >
           <span class="block sm:inline">{{ publishError }}</span>
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto [scrollbar-width: thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-stone-500 chat-area">
+      <div
+        class="flex-1 overflow-y-auto [scrollbar-width: thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-stone-500 chat-area"
+      >
         <div class="max-w-3xl mx-auto px-4 py-6 space-y-6">
-
           <ng-container *ngFor="let message of messages">
-            
             <div *ngIf="message.role === 'user'" class="flex justify-end">
-              <div class="bg-blue-600 text-white rounded-2xl px-4 py-3 max-w-lg">
+              <div
+                class="bg-blue-600 text-white rounded-2xl px-4 py-3 max-w-lg"
+              >
                 <p class="text-sm">
                   {{ message.content.text }}
                 </p>
               </div>
             </div>
 
-            <div *ngIf="message.role === 'assistant'" class="flex justify-start">
-              <div class="bg-white rounded-2xl px-4 py-3 max-w-2xl shadow-sm w-full">
-                
-                <div *ngIf="message.content.status === 'processing_media'" class="flex items-center space-x-2 text-orange-600 mb-2">
-                  <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            <div
+              *ngIf="message.role === 'assistant'"
+              class="flex justify-start"
+            >
+              <div
+                class="bg-white rounded-2xl px-4 py-3 max-w-2xl shadow-sm w-full"
+              >
+                <div
+                  *ngIf="message.content.status === 'processing_media'"
+                  class="flex items-center space-x-2 text-orange-600 mb-2"
+                >
+                  <svg
+                    class="animate-spin h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
                   </svg>
-                  <span class="text-sm font-semibold">Generando multimedia (videos/imágenes)...</span>
+                  <span class="text-sm font-semibold"
+                    >Generando multimedia (videos/imágenes)...</span
+                  >
                 </div>
 
-                 <div *ngIf="message.content.status === 'completed'" class="flex items-center space-x-2 text-green-600 mb-2">
-                  <span class="text-sm font-semibold">✅ Contenido generado exitosamente</span>
+                <div
+                  *ngIf="message.content.status === 'completed'"
+                  class="flex items-center space-x-2 text-green-600 mb-2"
+                >
+                  <span class="text-sm font-semibold"
+                    >✅ Contenido generado exitosamente</span
+                  >
                 </div>
 
                 <ng-container *ngFor="let network of socialNetworks">
-                  <div *ngIf="message.content[network]" class="border-l-4 pl-3 mt-4"
-                       [ngClass]="{
-                         'border-blue-700': network === 'Facebook' || network === 'LinkedIn',
-                         'border-pink-600': network === 'Instagram',
-                         'border-black': network === 'TikTok',
-                         'border-green-600': network === 'WhatsApp'
-                       }">
-                    
-                    <h4 class="font-bold text-sm text-gray-900 mb-1">{{ network }}</h4>
-                    
+                  <div
+                    *ngIf="message.content[network]"
+                    class="border-l-4 pl-3 mt-4"
+                    [ngClass]="{
+                      'border-blue-700':
+                        network === 'Facebook' || network === 'LinkedIn',
+                      'border-pink-600': network === 'Instagram',
+                      'border-black': network === 'TikTok',
+                      'border-green-600': network === 'WhatsApp'
+                    }"
+                  >
+                    <h4 class="font-bold text-sm text-gray-900 mb-1">
+                      {{ network }}
+                    </h4>
+
                     <!-- 🔧 FIX: Manejar descripción en ambas ubicaciones -->
                     <p class="text-sm text-gray-700 whitespace-pre-wrap">
-                      {{ message.content[network].descripcion || message.content[network].media_info?.descripcion }}
+                      {{
+                        message.content[network].descripcion ||
+                          message.content[network].media_info?.descripcion
+                      }}
                     </p>
 
                     <!-- Guion (solo para TikTok) -->
@@ -74,84 +118,203 @@
                     </div>
  -->
                     <!-- Archivo multimedia -->
-                    <div *ngIf="message.content[network].media_info?.fileName" class="mt-2">
-                      <span class="text-xs bg-stone-200 px-2 py-1 rounded text-stone-700">
-                        📄 {{ message.content[network].media_info?.fileName }}
-                      </span>
-                    </div>
+                    <!-- ✅ PREVISUALIZACIÓN DE ARCHIVOS -->
+<div *ngIf="message.content[network].media_info?.fileName" class="mt-3">
+  
+  <!-- Imágenes (Facebook, Instagram, LinkedIn, WhatsApp) -->
+  <img 
+    *ngIf="message.content[network].media_info.tipo === 'imagen'"
+    [src]="getMediaUrl(getFileName(message.content[network].media_info.ruta))"
+    [alt]="network + ' preview'"
+    class="w-full max-w-md rounded-lg shadow-sm border border-gray-200 mb-2"
+    (error)="onImageError($event)"
+  />
 
+  <!-- Videos (TikTok) -->
+  <video 
+    *ngIf="message.content[network].media_info.tipo === 'video'"
+    [src]="getMediaUrl(getFileName(message.content[network].media_info.ruta))"
+    controls
+    class="w-full max-w-md rounded-lg shadow-sm border border-gray-200 mb-2"
+  >
+    Tu navegador no soporta videos HTML5.
+  </video>
+
+  <!-- Nombre del archivo -->
+  <span class="text-xs bg-stone-200 px-2 py-1 rounded text-stone-700 inline-block">
+    📄 {{ message.content[network].media_info.fileName }}
+  </span>
+</div>
                     <!-- Botón de publicar para TikTok -->
-                    <div *ngIf="network === 'TikTok' && message.content.status === 'completed'" class="mt-3">
+                    <!-- Botón de publicar para cualquier red -->
+                    <div
+                      *ngIf="message.content.status === 'completed'"
+                      class="mt-3"
+                    >
                       <!-- Mostrar botón de publicar si puede publicarse -->
-                      <button 
-                        *ngIf="canPublishToTikTok(message)"
-                        (click)="publishToTikTok(message.id)"
+                      <button
+                        *ngIf="canPublishToNetwork(message, network)"
+                        (click)="publishToNetwork(message.id, network)"
                         [disabled]="publishingMessageId === message.id"
-                        class="bg-black hover:bg-gray-800 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
-                        <svg *ngIf="publishingMessageId === message.id" class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        [ngClass]="{
+                          'bg-black hover:bg-gray-800': network === 'TikTok',
+                          'bg-blue-600 hover:bg-blue-700':
+                            network === 'Facebook',
+                          'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700':
+                            network === 'Instagram',
+                          'bg-blue-700 hover:bg-blue-800':
+                            network === 'LinkedIn',
+                          'bg-green-600 hover:bg-green-700':
+                            network === 'WhatsApp'
+                        }"
+                        class="text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                      >
+                        <svg
+                          *ngIf="publishingMessageId === message.id"
+                          class="animate-spin h-4 w-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            class="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            stroke-width="4"
+                          ></circle>
+                          <path
+                            class="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
                         </svg>
-                        <span *ngIf="publishingMessageId !== message.id">📱 Publicar en TikTok</span>
-                        <span *ngIf="publishingMessageId === message.id">Publicando...</span>
+                        <span *ngIf="publishingMessageId !== message.id">
+                          <span *ngIf="network === 'TikTok'">📱</span>
+                          <span *ngIf="network === 'Facebook'">📘</span>
+                          <span *ngIf="network === 'Instagram'">📸</span>
+                          <span *ngIf="network === 'LinkedIn'">💼</span>
+                          <span *ngIf="network === 'WhatsApp'">💬</span>
+                          Publicar en {{ network }}
+                        </span>
+                        <span *ngIf="publishingMessageId === message.id"
+                          >Publicando...</span
+                        >
                       </button>
 
                       <!-- Mostrar estado de publicado -->
-                      <div *ngIf="isPublished(message)" class="bg-green-50 border border-green-200 rounded-lg p-3">
+                      <div
+                        *ngIf="isPublishedToNetwork(message, network)"
+                        [ngClass]="{
+                          'bg-green-50 border-green-200': true
+                        }"
+                        class="border rounded-lg p-3"
+                      >
                         <div class="flex items-center gap-2 text-green-700">
-                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                          <svg
+                            class="w-5 h-5"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clip-rule="evenodd"
+                            />
                           </svg>
-                          <span class="font-semibold text-sm">Publicado en TikTok</span>
+                          <span class="font-semibold text-sm"
+                            >Publicado en {{ network }}</span
+                          >
                         </div>
                         <p class="text-xs text-green-600 mt-1">
                           {{ message.content[network].publicacion?.mensaje }}
                         </p>
                         <p class="text-xs text-gray-500 mt-1">
-                          ID: {{ message.content[network].publicacion?.publishId }}
+                          ID:
+                          {{
+                            message.content[network].publicacion?.postId ||
+                              message.content[network].publicacion?.publishId
+                          }}
                         </p>
                       </div>
                     </div>
-
                   </div>
                 </ng-container>
-
               </div>
             </div>
           </ng-container>
 
           <div *ngIf="isLoading" class="flex justify-start pt-4">
-              <div class="bg-white rounded-2xl px-4 py-3 max-w-xs shadow-sm flex items-center space-x-2">
-                  <svg class="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  <p class="text-sm text-gray-800">Enviando solicitud...</p>
-              </div>
+            <div
+              class="bg-white rounded-2xl px-4 py-3 max-w-xs shadow-sm flex items-center space-x-2"
+            >
+              <svg
+                class="animate-spin h-5 w-5 text-gray-500"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <p class="text-sm text-gray-800">Enviando solicitud...</p>
+            </div>
           </div>
-
         </div>
       </div>
 
       <div class="px-4 pb-6 flex-shrink-0">
         <div class="max-w-3xl mx-auto">
-          <div class="bg-stone-950 rounded-3xl shadow-xl border border-stone-200">
+          <div
+            class="bg-stone-950 rounded-3xl shadow-xl border border-stone-200"
+          >
             <div class="flex items-end gap-2 p-2">
               <div class="flex-1">
                 <textarea
                   rows="1"
                   placeholder="Escribe tu idea para las redes..."
                   class="w-full resize-none border-none bg-transparent py-3 text-sm max-h-32 text-white focus:outline-none focus:ring-0 placeholder:text-gray-400"
-                  [(ngModel)]="currentPrompt" 
-                  (keydown.enter)="sendMessage(); $event.preventDefault()">
+                  [(ngModel)]="currentPrompt"
+                  (keydown.enter)="sendMessage(); $event.preventDefault()"
+                >
                 </textarea>
               </div>
               <button
-                (click)="sendMessage()" 
+                (click)="sendMessage()"
                 [disabled]="!currentPrompt.trim() || isLoading"
-                [ngClass]="{'bg-blue-600 hover:bg-blue-500': currentPrompt.trim() && !isLoading, 'bg-stone-900 text-gray-500': !currentPrompt.trim() || isLoading}"
-                class="text-white rounded-full p-2 transition-colors flex-shrink-0">
-                <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                [ngClass]="{
+                  'bg-blue-600 hover:bg-blue-500':
+                    currentPrompt.trim() && !isLoading,
+                  'bg-stone-900 text-gray-500':
+                    !currentPrompt.trim() || isLoading
+                }"
+                class="text-white rounded-full p-2 transition-colors flex-shrink-0"
+              >
+                <svg
+                  class="w-5 h-5 transform rotate-90"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                  />
+                </svg>
               </button>
             </div>
           </div>
