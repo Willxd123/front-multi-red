@@ -5,6 +5,8 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { TiktokComponent } from './pages/multi-red/conexiones/tiktok/tiktok.component';
 import { LayoutComponent } from './layout/layout.component';
 import { MultiRedComponent } from './pages/multi-red/multi-red.component';
+import { FacebookComponent } from './pages/multi-red/conexiones/facebook/facebook.component';
+import { InstagramComponent } from './pages/multi-red/conexiones/instagram/instagram.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +38,14 @@ export const routes: Routes = [
   {
     path: 'client',
     component: TiktokComponent,
+  },
+  {
+    path: 'face',
+    component: FacebookComponent,
+  },
+  {
+    path: 'inst',
+    component: InstagramComponent,
   },
  
 ];

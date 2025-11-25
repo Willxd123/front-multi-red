@@ -1,41 +1,47 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SidebarComponent } from "./components/sidebar/sidebar.component";
-import { NavbarComponent } from "./components/navbar/navbar.component";
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
-import { ChatbotService } from '../services/chatbot.service'; 
-import { Subscription, interval } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { ChatbotService } from '../services/chatbot.service';
+import { Observable, Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [SidebarComponent, NavbarComponent, CommonModule, FormsModule], 
-  templateUrl: './layout.component.html'
+  imports: [SidebarComponent, NavbarComponent, CommonModule, FormsModule],
+  templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   @ViewChild(SidebarComponent) sidebar!: SidebarComponent;
-  
+
   isSidebarOpen = true;
   activeConversationId: number = 5;
-  
+
   messages: any[] = [];
   currentPrompt: string = '';
   isLoading: boolean = false;
-  
+
   // ⬅️ AGREGAR: Para controlar estado de publicación
   publishingMessageId: number | null = null;
   publishError: string = '';
   publishSuccess: string = '';
-  
+
   private pollingSubscription: Subscription | null = null;
-  
+
   socialNetworks = ['TikTok', 'Facebook', 'Instagram', 'LinkedIn', 'WhatsApp'];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private chatbotService: ChatbotService 
+    private chatbotService: ChatbotService
   ) {}
 
   ngOnInit(): void {
@@ -51,33 +57,36 @@ export class LayoutComponent implements OnInit, OnDestroy {
   loadConversationMessages(shouldScroll: boolean = false): void {
     if (!this.activeConversationId) return;
 
-    this.chatbotService.getConversationHistory(this.activeConversationId).subscribe({
-      next: (data) => {
-        this.messages = data.messages || []; 
-        
-        if (shouldScroll) {
-          setTimeout(() => this.scrollToBottom(), 100);
-        }
-      },
-      error: (err) => {
-        console.error('Error cargando mensajes:', err);
-      }
-    });
+    this.chatbotService
+      .getConversationHistory(this.activeConversationId)
+      .subscribe({
+        next: (data) => {
+          this.messages = data.messages || [];
+
+          if (shouldScroll) {
+            setTimeout(() => this.scrollToBottom(), 100);
+          }
+        },
+        error: (err) => {
+          console.error('Error cargando mensajes:', err);
+        },
+      });
   }
 
   sendMessage(): void {
     const prompt = this.currentPrompt.trim();
-    if (!prompt || this.isLoading) {
-      return;
-    }
-
+    if (!prompt || this.isLoading) return;
+  
     this.isLoading = true;
     this.currentPrompt = ''; 
-
+  
     this.chatbotService.sendMessage(prompt, this.activeConversationId).subscribe({
       next: () => {
         this.loadConversationMessages(true);
         this.isLoading = false;
+        // ✅ Reiniciar polling al enviar mensaje
+        this.stopPolling();
+        this.startPolling();
       },
       error: (err) => {
         console.error('Error al enviar mensaje:', err);
@@ -85,60 +94,86 @@ export class LayoutComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  desactivarLoadingManual() {
+    this.isLoading = false;
+  }
   // ⬅️ NUEVO MÉTODO para publicar en TikTok
-  publishToTikTok(messageId: number): void {
+  publishToNetwork(messageId: number, network: string): void {
     this.publishingMessageId = messageId;
     this.publishError = '';
     this.publishSuccess = '';
 
-    this.chatbotService.publishToTikTok(messageId).subscribe({
+    let observable: Observable<any>;
+
+    switch (network) {
+      case 'TikTok':
+        observable = this.chatbotService.publishToTikTok(messageId);
+        break;
+      case 'Facebook':
+        observable = this.chatbotService.publishToFacebook(messageId);
+        break;
+      case 'Instagram':
+        observable = this.chatbotService.publishToInstagram(messageId);
+        break;
+      default:
+        this.publishError = `Red social ${network} no soportada`;
+        return;
+    }
+
+    observable.subscribe({
       next: (response) => {
-        console.log('✅ Publicado en TikTok:', response);
-        this.publishSuccess = response.message || 'Publicado exitosamente';
+        console.log(`✅ Publicado en ${network}:`, response);
+        this.publishSuccess =
+          response.message || `Publicado exitosamente en ${network}`;
         this.publishingMessageId = null;
-        
-        // Recargar mensajes para ver el estado actualizado
         this.loadConversationMessages(false);
-        
-        // Limpiar mensaje de éxito después de 3 segundos
+
         setTimeout(() => {
           this.publishSuccess = '';
         }, 3000);
       },
       error: (err) => {
-        console.error('❌ Error al publicar:', err);
-        this.publishError = err.error?.message || 'Error al publicar en TikTok';
+        console.error(`❌ Error al publicar en ${network}:`, err);
+        this.publishError =
+          err.error?.message || `Error al publicar en ${network}`;
         this.publishingMessageId = null;
-        
-        // Limpiar mensaje de error después de 5 segundos
+
         setTimeout(() => {
           this.publishError = '';
         }, 5000);
-      }
+      },
     });
   }
-
   // ⬅️ NUEVO: Verificar si un mensaje puede publicarse
-  canPublishToTikTok(message: any): boolean {
+  canPublishToNetwork(message: any, network: string): boolean {
     return (
       message.role === 'assistant' &&
       message.content.status === 'completed' &&
-      message.content.TikTok &&
-      message.content.TikTok.media_info &&
-      message.content.TikTok.media_info.ruta &&
-      !message.content.TikTok.publicacion?.estado // No está publicado
+      message.content[network] &&
+      message.content[network].media_info &&
+      message.content[network].media_info.ruta 
+     // !message.content[network].publicacion?.estado
     );
   }
 
   // ⬅️ NUEVO: Verificar si ya está publicado
-  isPublished(message: any): boolean {
-    return message.content.TikTok?.publicacion?.estado === 'publicado';
+  isPublishedToNetwork(message: any, network: string): boolean {
+    return message.content[network]?.publicacion?.estado === 'publicado';
   }
 
   startPolling(): void {
     this.pollingSubscription = interval(4000).subscribe(() => {
-      this.loadConversationMessages(false);
+      // ✅ Solo hacer polling si hay mensajes en "processing_media"
+      const hasProcessing = this.messages.some(
+        msg => msg.content?.status === 'processing_media'
+      );
+      
+      if (hasProcessing) {
+        this.loadConversationMessages(false);
+      } else {
+        // Si ya no hay nada procesando, detener polling
+        this.stopPolling();
+      }
     });
   }
 
@@ -147,7 +182,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
       this.pollingSubscription.unsubscribe();
     }
   }
-  
+
   scrollToBottom(): void {
     const element = document.querySelector('.chat-area');
     if (element) {
@@ -178,6 +213,31 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   onConversationSelected(conversationId: number): void {
     console.log('Conversación seleccionada:', conversationId);
+  }
+
+  /**
+   * Genera URL completa para previsualizar archivos
+   */
+  getMediaUrl(fileName: string): string {
+    return this.chatbotService.getMediaUrl(fileName);
+  }
+
+  /**
+   * Extrae solo el nombre del archivo de la ruta completa
+   */
+  getFileName(ruta: string): string {
+    if (!ruta) return '';
+    // Windows: E:\path\to\file.jpg → file.jpg
+    // Linux: /path/to/file.jpg → file.jpg
+    return ruta.split(/[/\\]/).pop() || '';
+  }
+
+  /**
+   * Maneja errores de carga de imágenes
+   */
+  onImageError(event: any): void {
+    console.error('Error cargando imagen:', event);
+    event.target.src = 'assets/placeholder.png'; // Opcional: imagen por defecto
   }
   
 }
