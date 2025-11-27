@@ -15,7 +15,8 @@ export interface MediaInfo {
 
 export interface SocialNetworkContent {
   media_info?: MediaInfo;
-  publicacion?: { // ⬅️ Agregar info de publicación
+  publicacion?: {
+    // ⬅️ Agregar info de publicación
     estado?: string;
     publishId?: string;
     mensaje?: string;
@@ -46,10 +47,10 @@ export interface ConversationDetail {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatbotService {
-  private apiUrl = 'http://localhost:3000/api'; 
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor(
     private http: HttpClient,
@@ -57,15 +58,19 @@ export class ChatbotService {
   ) {}
 
   sendMessage(prompt: string, conversationId: number): Observable<any> {
-    const body = { 
+    const body = {
       prompt: prompt,
-      conversationId: conversationId 
+      conversationId: conversationId,
     };
     return this.http.post(`${this.apiUrl}/chatbot/redes`, body);
   }
 
-  getConversationHistory(conversationId: number): Observable<ConversationDetail> {
-    return this.http.get<ConversationDetail>(`${this.apiUrl}/conversations/${conversationId}`);
+  getConversationHistory(
+    conversationId: number
+  ): Observable<ConversationDetail> {
+    return this.http.get<ConversationDetail>(
+      `${this.apiUrl}/conversations/${conversationId}`
+    );
   }
 
   // ⬅️ NUEVO MÉTODO para publicar en TikTok
@@ -76,7 +81,7 @@ export class ChatbotService {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     return this.http.post(
       `${this.apiUrl}/posts/tiktok/publish-from-message`,
       { messageId },
@@ -88,24 +93,24 @@ export class ChatbotService {
     if (!token) {
       throw new Error('Usuario no autenticado');
     }
-  
+
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     return this.http.post(
       `${this.apiUrl}/posts/facebook/publish-from-message`,
       { messageId },
       { headers }
     );
   }
-  
+
   publishToInstagram(messageId: number): Observable<any> {
     const token = this.authService.getToken();
     if (!token) {
       throw new Error('Usuario no autenticado');
     }
-  
+
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     return this.http.post(
       `${this.apiUrl}/posts/instagram/publish-from-message`,
       { messageId },
@@ -114,26 +119,42 @@ export class ChatbotService {
   }
 
   /**
- * Genera URL para previsualizar archivos multimedia
- */
-getMediaUrl(fileName: string): string {
-  const token = this.authService.getToken();
-  return `${this.apiUrl}/media/${fileName}`;
-}
-// Agregar al final de ChatbotService, después de publishToInstagram()
+   * Genera URL para previsualizar archivos multimedia
+   */
+  getMediaUrl(fileName: string): string {
+    const token = this.authService.getToken();
+    return `${this.apiUrl}/media/${fileName}`;
+  }
+  // Agregar al final de ChatbotService, después de publishToInstagram()
 
-publishToLinkedIn(messageId: number): Observable<any> {
-  const token = this.authService.getToken();
-  if (!token) {
-    throw new Error('Usuario no autenticado');
+  publishToLinkedIn(messageId: number): Observable<any> {
+    const token = this.authService.getToken();
+    if (!token) {
+      throw new Error('Usuario no autenticado');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post(
+      `${this.apiUrl}/posts/linkedin/publish-from-message`,
+      { messageId },
+      { headers }
+    );
   }
 
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  
-  return this.http.post(
-    `${this.apiUrl}/posts/linkedin/publish-from-message`,
-    { messageId },
-    { headers }
-  );
+  publishToWhatsApp(messageId: number): Observable<any> {
+    const token = this.authService.getToken();
+    if (!token) {
+      throw new Error('Usuario no autenticado');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post(
+      `${this.apiUrl}/posts/whatsapp/publish-from-message`,
+      { messageId },
+      { headers }
+    );
+  }
 }
-}
+ 
